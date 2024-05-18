@@ -28,7 +28,7 @@ try {
 }
 
 // Gérer les actions reçues par la page
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['action'])) {
         $action = $_POST['action'];
         if ($action === 'new' && isset($_POST['title'])) {
@@ -58,12 +58,14 @@ $taches = $stmt->fetchAll(PDO::FETCH_OBJ);
 
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To-Do List</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
+
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="#">To-Do List</a>
@@ -95,7 +97,8 @@ $taches = $stmt->fetchAll(PDO::FETCH_OBJ);
                         </form>
                         <form method="POST" action="" class="d-inline">
                             <input type="hidden" name="id" value="<?= $tache->id; ?>">
-                            <button type="submit" name="action" value="delete" class="btn btn-danger btn-sm">Supprimer</button>
+                            <button type="submit" name="action" value="delete"
+                                class="btn btn-danger btn-sm">Supprimer</button>
                         </form>
                     </div>
                 </li>
@@ -107,4 +110,5 @@ $taches = $stmt->fetchAll(PDO::FETCH_OBJ);
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
+
 </html>
